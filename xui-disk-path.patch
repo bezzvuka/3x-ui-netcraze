@@ -1,0 +1,33 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 0f6817b..1d62ec7 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -135,6 +135,14 @@ func GetBinFolderPath() string {
+ 	return binFolderPath
+ }
+ 
++func GetDiskPath() string {
++	diskPath := strings.TrimSpace(os.Getenv("XUI_DISK_PATH"))
++	if diskPath == "" {
++		return "/"
++	}
++	return diskPath
++}
++
+ func getBaseDir() string {
+ 	exePath, err := os.Executable()
+ 	if err != nil {
+diff --git a/internal/web/service/server.go b/internal/web/service/server.go
+index 2d3acfd..e6026df 100644
+--- a/internal/web/service/server.go
++++ b/internal/web/service/server.go
+@@ -504,7 +504,7 @@ func (s *ServerService) GetStatus(lastStatus *Status) *Status {
+ 	}
+ 
+ 	// Disk stats
+-	diskInfo, err := disk.Usage("/")
++	diskInfo, err := disk.Usage(config.GetDiskPath())
+ 	if err != nil {
+ 		logger.Warning("get disk usage failed:", err)
+ 	} else {
+
