@@ -11,6 +11,24 @@ critical disk warning.
 The patch adds the optional `XUI_DISK_PATH` environment variable. The default
 remains `/`, preserving upstream behavior. On Netcraze, set it to `/opt`.
 
+## One-line installation
+
+After Entware/OPKG has been initialized on an external EXT4 drive:
+
+```sh
+bash <(curl -Ls https://raw.githubusercontent.com/bezzvuka/3x-ui-netcraze/main/install.sh)
+```
+
+If Entware does not yet have `curl`, use its `wget` and `bash` directly:
+
+```sh
+/opt/bin/wget -qO- https://raw.githubusercontent.com/bezzvuka/3x-ui-netcraze/main/install.sh | /opt/bin/bash
+```
+
+The installer validates the architecture, external `/opt` mount, free space,
+and bundle SHA-256. Existing databases and credentials are preserved, and the
+previous program directory is retained as a timestamped rollback copy.
+
 ## Entware environment
 
 ```sh
@@ -47,4 +65,3 @@ then produces a statically linked `x-ui-netcraze` binary.
 
 The release binary was tested on the router before publication. Keep the
 original `x-ui` binary as a rollback copy before replacing it.
-
