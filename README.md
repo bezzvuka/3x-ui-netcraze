@@ -16,8 +16,12 @@ remains `/`, preserving upstream behavior. On Netcraze, set it to `/opt`.
 After Entware/OPKG has been initialized on an external EXT4 drive:
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/bezzvuka/3x-ui-netcraze/main/install.sh)
+curl -Ls https://raw.githubusercontent.com/bezzvuka/3x-ui-netcraze/main/install.sh | bash
 ```
+
+Netcraze/NDMS does not expose `/dev/fd`, so Bash process substitution in the
+upstream form `bash <(curl ...)` is unavailable even after Entware Bash is
+installed. The pipe form above is its direct one-line equivalent.
 
 If Entware does not yet have `curl`, use its `wget` and `bash` directly:
 
